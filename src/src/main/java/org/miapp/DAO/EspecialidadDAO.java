@@ -10,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Collections;
 
 public class EspecialidadDAO {
     private static final String FILE_PATH = "especialidades.json";
@@ -51,7 +50,7 @@ public class EspecialidadDAO {
         }
     }
 
-    public Especialidad obtenerEspecialidadPorId(int id) {
+    public Especialidad obtenerEspecialidadPorId(String id) {
         return especialidades.get(id);
     }
 

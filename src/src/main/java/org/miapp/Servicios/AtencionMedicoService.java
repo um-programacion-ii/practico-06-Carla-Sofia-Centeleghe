@@ -1,20 +1,19 @@
 package org.miapp.Servicios;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.miapp.DAO.MedicoDAO;
 import org.miapp.Clases.Medico;
 
 import java.util.List;
 
 public class AtencionMedicoService {
-    private MedicoDAO medicoDAO;
-    private static final AtencionMedicoService instance = new AtencionMedicoService();
+    private final MedicoDAO medicoDAO = new MedicoDAO();
+    @Getter
+    @Setter
+    private static AtencionMedicoService instance = new AtencionMedicoService();
 
     private AtencionMedicoService() {
-        this.medicoDAO = new MedicoDAO();
-    }
-
-    public static AtencionMedicoService getInstance() {
-        return instance;
     }
 
     public List<Medico> obtenerMedicosPorEspecialidadYObraSocial(String especialidad, String obraSocial) {
@@ -45,9 +44,6 @@ public class AtencionMedicoService {
         return medicoDAO.obtenerMedicoPorId(idMedico);
     }
 
-    public List<Medico> buscarMedicosPorFiltroAdicional(String filtroAdicional) {
-        return medicoDAO.buscarMedicosPorFiltroAdicional(filtroAdicional);
-    }
 
     public boolean asignarMedicoATurno(int idMedico, int idTurno) {
         return medicoDAO.asignarMedicoATurno(idMedico, idTurno);

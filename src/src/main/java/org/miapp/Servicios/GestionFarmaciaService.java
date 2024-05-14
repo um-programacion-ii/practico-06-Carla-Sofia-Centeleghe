@@ -1,28 +1,28 @@
 package org.miapp.Servicios;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.miapp.DAO.FarmaciaDAO;
 import org.miapp.DAO.RecetaDAO;
 import org.miapp.Clases.Medicamento;
 import org.miapp.Clases.Receta;
 import org.miapp.Clases.Drogueria;
 
+import java.util.List;
+
 public class GestionFarmaciaService {
-    private FarmaciaDAO farmaciaDAO;
-    private RecetaDAO recetaDAO;
-    private static final GestionFarmaciaService instance = new GestionFarmaciaService();
+    private final FarmaciaDAO farmaciaDAO;
+    private final RecetaDAO recetaDAO;
+    @Getter
+    @Setter
+
+    public static GestionFarmaciaService instance = new GestionFarmaciaService();
 
     private GestionFarmaciaService() {
         this.farmaciaDAO = new FarmaciaDAO();
         this.recetaDAO = new RecetaDAO();
     }
 
-    public static GestionFarmaciaService getInstance() {
-        return instance;
-    }
-
-    public void generarRecetaAleatoria(Receta receta) {
-        recetaDAO.crearReceta(receta);
-    }
 
     public int obtenerStockMedicamento(Medicamento medicamento) {
         return farmaciaDAO.obtenerStockMedicamento(medicamento);
@@ -41,7 +41,7 @@ public class GestionFarmaciaService {
     }
 
     public List<Receta> listarTodasLasRecetas() {
-        return recetaDAO.listarTodasLasRecetas();
+        return recetaDAO.actualizarReceta();
     }
 
     public void asociarRecetaADrogueria(Receta receta, Drogueria drogueria) {

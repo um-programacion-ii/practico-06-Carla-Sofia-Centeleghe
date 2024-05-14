@@ -12,7 +12,7 @@ import java.util.Map;
 public class PacienteDAO {
     private static final String FILE_PATH = "pacientes.json";
     private Map<Integer, Paciente> pacientes;
-    private ObjectMapper objectMapper;
+    public ObjectMapper objectMapper;
 
     public PacienteDAO() {
         this.pacientes = new HashMap<>();

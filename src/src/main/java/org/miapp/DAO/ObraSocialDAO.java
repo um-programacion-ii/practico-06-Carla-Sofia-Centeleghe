@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class ObraSocialDAO {
     private static final String FILE_PATH = "obras_sociales.json";
-    private Map<Integer, ObraSocial> obrasSociales;
-    private ObjectMapper objectMapper;
+    public Map<Integer, ObraSocial> obrasSociales;
+    public ObjectMapper objectMapper;
 
     public ObraSocialDAO() {
         this.obrasSociales = new HashMap<>();
@@ -41,7 +41,7 @@ public class ObraSocialDAO {
         }
     }
 
-    public ObraSocial obtenerObraSocialPorId(int id) {
+    public ObraSocial obtenerObraSocialPorId(String id) {
         return obrasSociales.get(id);
     }
 

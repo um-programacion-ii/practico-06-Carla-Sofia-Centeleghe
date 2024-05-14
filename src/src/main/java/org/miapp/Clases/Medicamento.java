@@ -1,34 +1,20 @@
 package org.miapp.Clases;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class Medicamento {
     private int id;
     private String nombre;
     private int stock;
 
-    // Constructor, getters y setters
+    private String categoria; // Nuevo campo para la categoría del medicamento
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public Medicamento(String recetaEjemplo) {
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
     }
 }
+

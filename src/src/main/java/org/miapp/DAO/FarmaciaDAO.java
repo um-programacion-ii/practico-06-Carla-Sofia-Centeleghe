@@ -9,15 +9,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
+import java.util.*;
 
 public class FarmaciaDAO {
     private static final String FILE_PATH = "farmacia_stock.json";
-    private Farmacia farmacia;
-    private ObjectMapper objectMapper;
+    private final Farmacia farmacia;
+    private final ObjectMapper objectMapper;
 
     public FarmaciaDAO() {
         this.farmacia = new Farmacia();
@@ -71,4 +68,20 @@ public class FarmaciaDAO {
             e.printStackTrace();
         }
     }
+
+    public List<Medicamento> obtenerMedicamentosPorCategoria(String categoria) {
+        // Obtener el mapa de stock de medicamentos
+        Map<Medicamento, Integer> stockMedicamentos = farmacia.getStockMedicamentos().orElse(Collections.emptyMap());
+
+        // Filtrar los medicamentos por categoría
+        List<Medicamento> medicamentosPorCategoria = new ArrayList<>();
+        for (Map.Entry<Medicamento, Integer> entry : stockMedicamentos.entrySet()) {
+            Medicamento medicamento = entry.getKey();
+            if (medicamento.getCategoria().equals(categoria)) {
+                medicamentosPorCategoria.add(medicamento);
+            }
+        }
+        return medicamentosPorCategoria;
+    }
+
 }

@@ -11,10 +11,6 @@ public class Farmacia {
         this.stockMedicamentos = Collections.emptyMap();
     }
 
-    public Farmacia(Map<Medicamento, Integer> stockMedicamentos) {
-        this.stockMedicamentos = Collections.unmodifiableMap(stockMedicamentos);
-    }
-
     public Optional<Map<Medicamento, Integer>> getStockMedicamentos() {
         return Optional.ofNullable(stockMedicamentos);
     }
