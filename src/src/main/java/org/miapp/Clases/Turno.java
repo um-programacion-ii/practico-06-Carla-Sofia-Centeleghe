@@ -1,5 +1,8 @@
 package org.miapp.Clases;
 
+import java.util.Date;
+import java.util.List;
+
 public class Turno {
     private int id;
     private Paciente paciente;

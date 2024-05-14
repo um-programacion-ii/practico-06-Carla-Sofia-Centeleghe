@@ -1,6 +1,3 @@
-package org.miapp.Servicios.Pruebas;
-
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
@@ -13,7 +10,6 @@ import org.miapp.Clases.Turno;
 import org.miapp.Servicios.GestionTurnoService;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Mockito.*;
 
