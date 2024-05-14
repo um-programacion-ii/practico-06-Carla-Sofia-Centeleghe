@@ -3,7 +3,9 @@ package org.miapp.DAO;
 import org.miapp.Clases.Receta;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,8 +24,8 @@ public class RecetaDAO {
         try {
             File file = new File(FILE_PATH);
             if (file.exists()) {
-                String json = new String(file.getBytes());
-                recetas = objectMapper.readValue(json, objectMapper.getTypeFactory().constructMapType(Map.class, Receta.class));
+                String json = new String(Files.readAllBytes(file.toPath()));
+                recetas = objectMapper.readValue(json, Map.class);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,8 +66,9 @@ public class RecetaDAO {
     private void saveRecetasToFile() {
         try {
             String json = objectMapper.writeValueAsString(recetas);
-            File file = new File(FILE_PATH);
-            file.writeBytes(json);
+            FileWriter writer = new FileWriter(FILE_PATH);
+            writer.write(json);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

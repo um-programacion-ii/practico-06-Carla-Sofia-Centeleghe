@@ -1,13 +1,16 @@
 package org.miapp.DAO;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.miapp.Clases.Especialidad;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Collections;
-
 
 public class EspecialidadDAO {
     private static final String FILE_PATH = "especialidades.json";
@@ -24,13 +27,20 @@ public class EspecialidadDAO {
         try {
             File file = new File(FILE_PATH);
             if (file.exists()) {
-                String json = new String(file.getBytes());
-                especialidades = objectMapper.readValue(json, objectMapper.getTypeFactory().constructMapType(Map.class, Especialidad.class));
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
+                StringBuilder json = new StringBuilder();
+                while ((line = reader.readLine())!= null) {
+                    json.append(line);
+                }
+                reader.close();
+                especialidades = objectMapper.readValue(json.toString(), new TypeReference<Map<Integer, Especialidad>>() {});
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void crearEspecialidad(Especialidad especialidad) {
         if (!especialidades.containsKey(especialidad.getId())) {
@@ -65,9 +75,9 @@ public class EspecialidadDAO {
 
     private void saveEspecialidadesToFile() {
         try {
-            String json = objectMapper.writeValueAsString(especialidades);
-            File file = new File(FILE_PATH);
-            file.writeBytes(json);
+            FileWriter writer = new FileWriter(FILE_PATH);
+            objectMapper.writeValue(writer, especialidades);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

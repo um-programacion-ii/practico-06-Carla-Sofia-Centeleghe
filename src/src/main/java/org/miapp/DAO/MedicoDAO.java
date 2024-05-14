@@ -3,9 +3,11 @@ package org.miapp.DAO;
 import org.miapp.Clases.Medico;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.nio.file.Files;
 
 public class MedicoDAO {
     private static final String FILE_PATH = "medicos.json";
@@ -22,8 +24,8 @@ public class MedicoDAO {
         try {
             File file = new File(FILE_PATH);
             if (file.exists()) {
-                String json = new String(file.getBytes());
-                medicos = objectMapper.readValue(json, objectMapper.getTypeFactory().constructMapType(Map.class, Medico.class));
+                String json = new String(Files.readAllBytes(file.toPath()));
+                medicos = objectMapper.readValue(json, Map.class);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,8 +66,9 @@ public class MedicoDAO {
     private void saveMedicosToFile() {
         try {
             String json = objectMapper.writeValueAsString(medicos);
-            File file = new File(FILE_PATH);
-            file.writeBytes(json);
+            FileWriter writer = new FileWriter(FILE_PATH);
+            writer.write(json);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

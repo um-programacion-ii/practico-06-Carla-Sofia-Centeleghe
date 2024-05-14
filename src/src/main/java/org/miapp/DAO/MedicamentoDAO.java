@@ -3,9 +3,15 @@ package org.miapp.DAO;
 import org.miapp.Clases.Medicamento;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
+
+
 
 public class MedicamentoDAO {
     private static final String FILE_PATH = "medicamentos.json";
@@ -20,11 +26,8 @@ public class MedicamentoDAO {
 
     private void loadMedicamentosFromFile() {
         try {
-            File file = new File(FILE_PATH);
-            if (file.exists()) {
-                String json = new String(file.getBytes());
-                medicamentos = objectMapper.readValue(json, objectMapper.getTypeFactory().constructMapType(Map.class, Medicamento.class));
-            }
+            String json = new String(Files.readAllBytes(Paths.get(FILE_PATH)));
+            medicamentos = objectMapper.readValue(json, Map.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,8 +67,9 @@ public class MedicamentoDAO {
     private void saveMedicamentosToFile() {
         try {
             String json = objectMapper.writeValueAsString(medicamentos);
-            File file = new File(FILE_PATH);
-            file.writeBytes(json);
+            FileWriter writer = new FileWriter(FILE_PATH);
+            writer.write(json);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
