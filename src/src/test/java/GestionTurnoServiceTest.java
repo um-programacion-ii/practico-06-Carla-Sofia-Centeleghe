@@ -1,9 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.miapp.Clases.Medicamento;
 import org.miapp.Clases.Medico;
-import org.miapp.Clases.Paciente;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -13,7 +11,6 @@ import org.miapp.DAO.TurnoDAO;
 import org.miapp.Clases.Turno;
 
 import java.util.Collections;
-import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -34,11 +31,12 @@ public class GestionTurnoServiceTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         // Configura el comportamiento del método obtenerTurnoPorId para devolver un turno cuando se le pase un ID válido
-        Turno turnoEjemplo = new Turno(1, "Paciente Ejemplo", Collections.singletonList(new Medico("Médico Ejemplo")).toString(), true, false, String.valueOf(Collections.emptyList()));
+        Turno turnoEjemplo = new Turno(1, "Paciente Ejemplo", Collections.singletonList(new Medico(1, "Médico Ejemplo", "Cardiología", "Opción A")).toString(), true, false, String.valueOf(Collections.emptyList()));
         when(turnoDAO.obtenerTurnoPorId(anyInt())).thenReturn(turnoEjemplo);
 
         // Configura el comportamiento del método obtenerTurnoPorId para devolver null cuando se le pase un ID inválido
         when(turnoDAO.obtenerTurnoPorId(-1)).thenReturn(null);
+
         // Configura el comportamiento del método obtenerTurnoPorId para devolver null cuando se le pase un ID inválido
         // Esto simula que el turno no existe sin lanzar una excepción
         when(turnoDAO.obtenerTurnoPorId(-1)).thenReturn(null);
@@ -56,12 +54,12 @@ public class GestionTurnoServiceTest {
 
     @Test
     public void testObtenerTurnoPorId() {
-        // Llama al método que estás probando
+        // Llama al método que pruebo
         Turno result = gestionTurnoService.obtenerTurnoPorId(1);
 
         // Verifica que el resultado no sea nulo
         assertNotNull(result);
-        // Verifica que el resultado tenga los valores esperados (puedes ajustar estos valores según tu lógica)
+        // Verifica que el resultado tenga los valores esperados
         assertEquals(1, result.getId());
         assertEquals("Paciente Ejemplo", result.getPaciente());
         assertEquals(1, result.getMedicosAsignados().size());
@@ -96,7 +94,7 @@ public class GestionTurnoServiceTest {
         // Configurar el comportamiento simulado del DAO para lanzar una excepción cuando el turno no existe
         when(turnoDAO.obtenerTurnoPorId(999)).thenThrow(new IllegalArgumentException("El turno no existe"));
 
-        // Ejecutar el método que quieres probar
+        // Ejecutar el método
         assertThrows(IllegalArgumentException.class, () -> gestionTurnoService.eliminarTurno(999));
     }
 
@@ -104,8 +102,7 @@ public class GestionTurnoServiceTest {
         public void testActualizarTurno() {
             // Preparar datos de prueba
             Turno turnoActualizado = new Turno(1, "Paciente Ejemplo", "Médico Ejemplo", true, false, "Receta Ejemplo");
-            turnoActualizado.setId(1); // Asume que este ID corresponde a un turno existente en tu simulación
-            // Inicializa otros campos de turnoActualizado según sea necesario
+            turnoActualizado.setId(1);
 
             // Configurar el comportamiento simulado del DAO para un turno existente
             when(turnoDAO.actualizarTurno(any(Turno.class))).thenAnswer(invocation -> {
@@ -119,7 +116,6 @@ public class GestionTurnoServiceTest {
             // Verificar que el turno resultante es el mismo que el turno actualizado
             assertEquals(turnoActualizado, turnoResultante);
         }
-
 
 }
 

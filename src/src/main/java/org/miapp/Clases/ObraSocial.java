@@ -9,4 +9,7 @@ public class ObraSocial {
     private int id;
     private String nombre;
 
+    public ObraSocial(String obraSocialId, String obraSocial) {
+
+    }
 }

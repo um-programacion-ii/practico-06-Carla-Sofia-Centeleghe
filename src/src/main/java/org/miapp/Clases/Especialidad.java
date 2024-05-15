@@ -10,6 +10,7 @@ public class Especialidad {
     private int id;
     private String nombre;
 
-    // Constructor, getters y setters
+    public Especialidad(String especialidadId, String especialidad) {
 
+    }
 }

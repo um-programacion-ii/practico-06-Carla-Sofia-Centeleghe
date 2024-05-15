@@ -13,7 +13,7 @@ public class Medicamento {
     private String categoria; // Nuevo campo para la categoría del medicamento
 
 
-    public Medicamento(String recetaEjemplo) {
+    public Medicamento(String recetaEjemplo, int i) {
 
     }
 }

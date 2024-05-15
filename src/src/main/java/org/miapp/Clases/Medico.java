@@ -3,7 +3,6 @@ package org.miapp.Clases;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collection;
 import java.util.List;
 
 @Setter
@@ -16,7 +15,7 @@ public class Medico {
     private boolean atiendeParticular;
     private List<Turno> turnosAsignados; // Lista de turnos a los que está asignado el médico
 
-    public Medico(String médicoEjemplo) {
+    public Medico(int i, String médicoEjemplo, String cardiología, String opciónA) {
 
     }
 }

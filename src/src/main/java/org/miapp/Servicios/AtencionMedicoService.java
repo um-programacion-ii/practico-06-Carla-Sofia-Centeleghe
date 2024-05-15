@@ -13,7 +13,7 @@ public class AtencionMedicoService {
     @Setter
     private static AtencionMedicoService instance = new AtencionMedicoService();
 
-    private AtencionMedicoService() {
+    public AtencionMedicoService() {
     }
 
     public List<Medico> obtenerMedicosPorEspecialidadYObraSocial(String especialidad, String obraSocial) {

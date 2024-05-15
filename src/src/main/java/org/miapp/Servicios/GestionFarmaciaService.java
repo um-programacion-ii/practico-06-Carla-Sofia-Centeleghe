@@ -11,14 +11,15 @@ import org.miapp.Clases.Drogueria;
 import java.util.List;
 
 public class GestionFarmaciaService {
-    private final FarmaciaDAO farmaciaDAO;
-    private final RecetaDAO recetaDAO;
+    private FarmaciaDAO farmaciaDAO;
+    private RecetaDAO recetaDAO;
     @Getter
     @Setter
 
-    public static GestionFarmaciaService instance = new GestionFarmaciaService();
 
-    private GestionFarmaciaService() {
+    public GestionFarmaciaService instance = new GestionFarmaciaService(farmaciaDAO, recetaDAO);
+
+    public GestionFarmaciaService(FarmaciaDAO farmaciaDAO, RecetaDAO recetaDAO) {
         this.farmaciaDAO = new FarmaciaDAO();
         this.recetaDAO = new RecetaDAO();
     }
